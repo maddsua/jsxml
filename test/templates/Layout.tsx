@@ -6,8 +6,6 @@ interface Props {
 
 export default function (props: Props, children: any) {
 
-	console.log(children);
-
 	return <html>
 			<head>
 				<meta charset="utf-8" />
