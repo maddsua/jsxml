@@ -14,6 +14,7 @@ export default function (props: Props, children: any) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<title>{props.title}</title>
 				<style src="/style.css" bundle></style>
+				<script src="/script.js" bundle></script>
 			</head>
 			<body>
 
