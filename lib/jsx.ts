@@ -77,9 +77,12 @@ class JSXHTMLNode extends JSXNode {
 		const allAttribs = Object.entries(this.attributes);
 		const attribsAsString = allAttribs.length ? ' ' + allAttribs.map(item => `${item[0]}="${item[1]}"`).join(' ') : '';
 
-		return this.children === null ?
-			`<${this.tagname}${attribsAsString} />` :
-			`<${this.tagname}${attribsAsString}>${this.children.map(item => item.render()).join('')}</${this.tagname}>`;
+		if (this.children === null) {
+			return `<${this.tagname}${attribsAsString} />`;
+		}
+
+		const innerHTML = this.children.map(item => item.render()).join('');
+		return `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
 	}
 };
 

@@ -2,7 +2,6 @@ import { React } from "../../lib/jsx.ts"
 
 interface Props {
 	title: string;
-	children?: any;
 };
 
 export default function (props: Props, children: any) {
