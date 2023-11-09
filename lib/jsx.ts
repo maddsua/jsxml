@@ -119,8 +119,7 @@ export const jsxfactory = {
 		else if (typeof tag === 'string') {
 			return new JSXHTMLNode(tag, attributes, children);
 		}
-		else {
-			throw new Error('Unexpected JSX tag type');
-		}
+		
+		throw new Error('Unexpected JSX tag type');
 	}
 };
