@@ -108,7 +108,7 @@ export const jsxfactory = {
 	Fragment: function (_props: any, children: JSXNode[]) {
 		return children;
 	},
-	createElement: function (tag: string | Function, attributes: Record<string, string | boolean>) {
+	createElement: function (tag: string | Function, attributes: Record<string, string | boolean>): JSXHTMLNode {
 
 		const children: JSXNode[] = Array.from(arguments).slice(2).map(item => Array.isArray(item) ? item : [item]).flat(2).map(item => typeof item === 'string' ? new JSXTextNode(item) : item);
 
