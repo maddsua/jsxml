@@ -71,6 +71,9 @@
     "https://deno.land/std@0.205.0/path/windows/resolve.ts": "5ff441ab18a2346abadf778121128ee71bda4d0898513d4639a6ca04edca366b",
     "https://deno.land/std@0.205.0/path/windows/separator.ts": "ae21f27015f10510ed1ac4a0ba9c4c9c967cbdd9d9e776a3e4967553c397bd5d",
     "https://deno.land/std@0.205.0/path/windows/to_file_url.ts": "8e9ea9e1ff364aa06fa72999204229952d0a279dbb876b7b838b2b2fea55cce3",
-    "https://deno.land/std@0.205.0/path/windows/to_namespaced_path.ts": "e0f4d4a5e77f28a5708c1a33ff24360f35637ba6d8f103d19661255ef7bfd50d"
+    "https://deno.land/std@0.205.0/path/windows/to_namespaced_path.ts": "e0f4d4a5e77f28a5708c1a33ff24360f35637ba6d8f103d19661255ef7bfd50d",
+    "https://raw.githubusercontent.com/maddsua/jsxml/v0.1/lib/jsx.ts": "8d6f2cac2d88e13d4ac78c4b0fa60f620c53a7b96e6b1aaf8ba813d4af2ede0d",
+    "https://raw.githubusercontent.com/maddsua/jsxml/v0.1/lib/res.ts": "8ba3ddaaf65fa7aa8c2c331716c2fe6530725e6124904d0258add000cb91cbce",
+    "https://raw.githubusercontent.com/maddsua/jsxml/v0.1/mod.ts": "084acd2ca5fa2c8e54ac4aab96267d5204fcc4492af970d067634a9d8d36566a"
   }
 }
