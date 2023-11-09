@@ -24,20 +24,6 @@ abstract class JSXNode {
 	abstract render(): string;
 };
 
-class JSXFragmentNode extends JSXNode {
-
-	children: JSXNode[];
-
-	constructor(children?: JSXNode[]) {
-		super();
-		this.children = children || [];
-	};
-
-	render() {
-		return this.children.map(item => item.render()).join('');
-	}
-};
-
 class JSXTextNode extends JSXNode {
 
 	content: string;
@@ -97,14 +83,14 @@ declare global {
 }
 
 export const JSX = {
+	Fragment: function (_props: any, children: JSXNode[]) {
+		return children;
+	},
 	createElement: function (tag: string | Function, attributes: Record<string, string | boolean>) {
 
-		const children = Array.from(arguments).slice(2).map(item => Array.isArray(item) ? item : [item]).flat(2).map(item => typeof item === 'string' ? new JSXTextNode(item) : item);
+		const children: JSXNode[] = Array.from(arguments).slice(2).map(item => Array.isArray(item) ? item : [item]).flat(2).map(item => typeof item === 'string' ? new JSXTextNode(item) : item);
 
-		if (!tag) {
-			return new JSXFragmentNode(children);
-		}
-		else if (typeof tag === 'function') {
+		if (typeof tag === 'function') {
 			let temp = tag(attributes, children);
 			return temp;
 		}
