@@ -1,14 +1,23 @@
 import Component from "./templates/Component.tsx";
 
-const html = Component();
+const outputHTMLFile = './test/dist/index.html';
 
 try {
+	
 
-	let content = html.render({
+	const appRoot = Component();
+	let html = appRoot.render({
 		externalResourcesRoot: './test/resources/'
 	});
 
-	Deno.writeTextFileSync('./test/dist/index.html', content);
+	
+	if (!Deno.env.get('TEST_OUT_DRY')) {
+		Deno.writeTextFileSync(outputHTMLFile, html);
+		console.log('Written to:', outputHTMLFile)
+	}
+	else {
+		console.log('Rendered html:', html);
+	}
 
 } catch (error) {
 	console.error(error.message);
