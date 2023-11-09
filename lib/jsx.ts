@@ -1,3 +1,4 @@
+import { loadResource } from "./res.ts";
 
 const selfClosingTags = new Set<string>([
 	"area",
@@ -20,8 +21,17 @@ const selfClosingTags = new Set<string>([
 	"frame"
 ]);
 
+const externalResourceTags = new Set<string>([
+	"script",
+	"style"
+]);
+
+interface RenderProps {
+	externalResourcesRoot?: string;
+};
+
 abstract class JSXNode {
-	abstract render(): string;
+	abstract render(props?: RenderProps): string;
 };
 
 class JSXTextNode extends JSXNode {
@@ -43,6 +53,7 @@ class JSXHTMLNode extends JSXNode {
 	children: JSXNode[] | null;
 	tagname: string;
 	attributes: Record<string, string> = {};
+
 	constructor(tagname: string, attributes?: Record<string, string | boolean>, children?: JSXNode[]) {
 
 		super();
@@ -54,11 +65,22 @@ class JSXHTMLNode extends JSXNode {
 			const value = attributes[key];
 			const isBool = value === true;
 			if (!isBool && typeof value !== 'string') continue;
-			this.attributes[key] = isBool ? '' : value;
+			this.attributes[key.toLowerCase()] = isBool ? '' : value.replaceAll(`"`, `'`);
 		}
 	}
 
-	render() {
+	render(props?: RenderProps) {
+
+		let externalContent: string | null = null;
+
+		if (externalResourceTags.has(this.tagname) && this.attributes['bundle'] !== undefined) {
+
+			if (!this.attributes['src']) throw new Error('An element has bundle attribute but src is not provided');
+			externalContent = loadResource(this.attributes['src'], props?.externalResourcesRoot);
+
+			delete this.attributes['src'];
+			delete this.attributes['bundle'];
+		}
 
 		const allAttribs = Object.entries(this.attributes);
 		const attribsAsString = allAttribs.length ? ' ' + allAttribs.map(item => `${item[0]}="${item[1]}"`).join(' ') : '';
@@ -67,7 +89,7 @@ class JSXHTMLNode extends JSXNode {
 			return `<${this.tagname}${attribsAsString} />`;
 		}
 
-		const innerHTML = this.children.map(item => item.render()).join('');
+		const innerHTML = externalContent || this.children.map(item => item.render(props)).join('');
 		return `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
 	}
 };
@@ -82,7 +104,7 @@ declare global {
 	}
 }
 
-export const JSX = {
+export const jsxfactory = {
 	Fragment: function (_props: any, children: JSXNode[]) {
 		return children;
 	},
@@ -102,6 +124,3 @@ export const JSX = {
 		}
 	}
 };
-
-export const React = JSX;
-export const _jsx = JSX;

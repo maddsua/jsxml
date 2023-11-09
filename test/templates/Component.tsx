@@ -1,4 +1,4 @@
-import { React } from "../../lib/jsx.ts";
+import { React } from "../../mod.ts";
 import Layout from "./Layout.tsx";
 
 const pets = [

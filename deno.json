@@ -1,5 +1,5 @@
 {
 	"tasks": {
-		"test": "deno run test/index.ts"
+		"test": "deno run --allow-all test/index.ts"
 	}
 }

@@ -2,6 +2,8 @@ import Component from "./templates/Component.tsx";
 
 const html = Component();
 
-console.log(html.render());
+const content = html.render({
+	externalResourcesRoot: './test/resources/'
+});
 
-//console.log(JSON.stringify(html, null, 4));
+Deno.writeTextFileSync('./test/dist/index.html', content);

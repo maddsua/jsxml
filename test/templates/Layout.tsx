@@ -1,4 +1,4 @@
-import { React } from "../../lib/jsx.ts"
+import { React } from "../../mod.ts";
 
 interface Props {
 	title: string;
@@ -13,6 +13,7 @@ export default function (props: Props, children: any) {
 				<meta name="x-apple-disable-message-reformatting" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<title>{props.title}</title>
+				<style src="/style.css" bundle></style>
 			</head>
 			<body>
 
