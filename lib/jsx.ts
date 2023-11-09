@@ -112,7 +112,7 @@ export const JSX = {
 			return new JSXHTMLNode(tag, attributes, children);
 		}
 		else {
-			throw new Error('what the fuck')
+			throw new Error('Unexpected JSX tag type');
 		}
 	}
 };
