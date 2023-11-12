@@ -16,9 +16,10 @@ try {
 		console.log('Written to:', outputHTMLFile)
 	}
 	else {
-		console.log('Rendered html ok, length:', html.length);
+		console.log('✅ Rendered html ok, length:', html.length);
 	}
 
 } catch (error) {
 	console.error(error.message);
+	Deno.exit(1);
 }
