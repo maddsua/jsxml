@@ -28,6 +28,8 @@ const externalResourceTags = new Set<string>([
 
 interface RenderProps {
 	externalResourcesRoot?: string;
+	addDoctype?: boolean;
+	convertBrTagsToNewlines?: boolean;
 };
 
 abstract class JSXNode {
@@ -36,11 +38,11 @@ abstract class JSXNode {
 
 class JSXFragmentNode extends JSXNode {
 
-	children: JSXNode[] | null;
+	children: JSXNode[];
 
 	constructor(children?: JSXNode[]) {
 		super();
-		this.children = children || null;
+		this.children = children || [];
 	}
 
 	render(props?: RenderProps): string {
@@ -71,9 +73,9 @@ class JSXHTMLNode extends JSXNode {
 	constructor(tagname: string, attributes?: Record<string, string | boolean>, children?: JSXNode[]) {
 
 		super();
-		this.tagname = tagname;
+		this.tagname = tagname.toLowerCase();
 
-		this.children = selfClosingTags.has(tagname) ? null : children || [];
+		this.children = selfClosingTags.has(this.tagname) ? null : children || [];
 
 		for (const key in attributes) {
 			const value = attributes[key];
@@ -85,8 +87,17 @@ class JSXHTMLNode extends JSXNode {
 
 	render(props?: RenderProps) {
 
-		let externalContent: string | null = null;
+		/**
+		 * Check for <br> tag replacement
+		 */
+		if (this.tagname === 'br' && props?.convertBrTagsToNewlines) {
+			return '\r\n';
+		}
 
+		/**
+		 * Perform external content bundling
+		 */
+		let externalContent: string | null = null;
 		if (externalResourceTags.has(this.tagname) && this.attributes['bundle'] !== undefined) {
 
 			if (!this.attributes['src']) throw new Error('An element has bundle attribute but src is not provided');
@@ -96,15 +107,36 @@ class JSXHTMLNode extends JSXNode {
 			delete this.attributes['bundle'];
 		}
 
+		/**
+		 * Process tag attributes
+		 */
 		const allAttribs = Object.entries(this.attributes);
 		const attribsAsString = allAttribs.length ? ' ' + allAttribs.map(item => `${item[0]}="${item[1]}"`).join(' ') : '';
 
+		/**
+		 * Return void tag
+		 */
 		if (this.children === null) {
 			return `<${this.tagname}${attribsAsString} />`;
 		}
 
+		/**
+		 * Generate tag with children
+		 */
 		const innerHTML = externalContent || this.children.map(item => item.render(props)).join('');
-		return `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
+		const tagHTML = `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
+
+		/**
+		 * Return <html> tag with doctype
+		 */
+		if (this.tagname === 'html' && props?.addDoctype !== false) {
+			return '<!DOCTYPE html>' + tagHTML;
+		}
+
+		/**
+		 * Return regular tag
+		 */
+		return tagHTML;
 	}
 };
 
