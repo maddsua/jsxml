@@ -34,6 +34,20 @@ abstract class JSXNode {
 	abstract render(props?: RenderProps): string;
 };
 
+class JSXFragmentNode extends JSXNode {
+
+	children: JSXNode[] | null;
+
+	constructor(children?: JSXNode[]) {
+		super();
+		this.children = children || null;
+	}
+
+	render(props?: RenderProps): string {
+		return this.children?.map(item => item.render(props)).join('') || '';
+	}
+};
+
 class JSXTextNode extends JSXNode {
 
 	content: string;
@@ -106,7 +120,7 @@ declare global {
 
 export const jsxfactory = {
 	Fragment: function (_props: any, children: JSXNode[]) {
-		return children;
+		return new JSXFragmentNode(children);
 	},
 	createElement: function (tag: string | Function, attributes: Record<string, string | boolean>): JSXHTMLNode {
 
