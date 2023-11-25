@@ -36,6 +36,16 @@ abstract class JSXNode {
 	abstract render(props?: RenderProps): string;
 };
 
+const renderChildren = (children: any[]) => children.map(item => {
+	switch (typeof item) {
+		case 'object': return item instanceof JSXNode ? item.render() : JSON.stringify(item);
+		case 'string': return item;
+		case 'number': return item.toString();
+		case 'boolean': return item ? 'true' : 'false';
+		default: return null;
+	}
+}).filter(item => typeof item === 'string').join('');
+
 class JSXFragmentNode extends JSXNode {
 
 	children: JSXNode[];
@@ -46,7 +56,7 @@ class JSXFragmentNode extends JSXNode {
 	}
 
 	render(props?: RenderProps): string {
-		return this.children?.map(item => item.render(props)).join('') || '';
+		return renderChildren(this.children);
 	}
 };
 
@@ -123,7 +133,7 @@ class JSXHTMLNode extends JSXNode {
 		/**
 		 * Generate tag with children
 		 */
-		const innerHTML = externalContent || this.children.map(item => item.render(props)).join('');
+		const innerHTML = externalContent || renderChildren(this.children);
 		const tagHTML = `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
 
 		/**
