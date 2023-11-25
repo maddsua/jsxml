@@ -36,15 +36,24 @@ abstract class JSXNode {
 	abstract render(props?: RenderProps): string;
 };
 
-const renderChildren = (children: any[], renderProps?: RenderProps) => children.map(item => {
-	switch (typeof item) {
-		case 'object': return item instanceof JSXNode ? item.render(renderProps) : JSON.stringify(item);
-		case 'string': return item;
-		case 'number': return item.toString();
-		case 'boolean': return item ? 'true' : 'false';
-		default: return null;
-	}
-}).filter(item => typeof item === 'string').join('');
+const renderChildren = (children: any[], renderProps?: RenderProps) => {
+
+	const asStrings = children.map(item => {
+
+		if (item instanceof JSXNode)
+			return item.render(renderProps);
+	
+		switch (typeof item) {
+			case 'string': return item;
+			case 'number': return item.toString();
+			case 'object': return JSON.stringify(item);
+			case 'boolean': return item ? 'true' : 'false';
+			default: return null;
+		}
+	});
+
+	return asStrings.filter(item => typeof item === 'string').join('');
+};
 
 class JSXFragmentNode extends JSXNode {
 
