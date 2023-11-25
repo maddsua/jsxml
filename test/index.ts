@@ -16,6 +16,7 @@ try {
 		console.log('Written to:', outputHTMLFile)
 	}
 	else {
+		console.log(html);
 		console.log('✅ Rendered html ok, length:', html.length);
 	}
 
