@@ -26,6 +26,10 @@ const externalResourceTags = new Set<string>([
 	"style"
 ]);
 
+const reactNamingConventions = new Map<string, string>([
+	["className", "class"]
+]);
+
 interface RenderProps {
 	externalResourcesRoot?: string;
 	addDoctype?: boolean;
@@ -97,10 +101,13 @@ class JSXHTMLNode extends JSXNode {
 		this.children = selfClosingTags.has(this.tagname) ? null : children || [];
 
 		for (const key in attributes) {
+
 			const value = attributes[key];
 			const isBool = value === true;
 			if (!isBool && typeof value !== 'string') continue;
-			this.attributes[key.toLowerCase()] = isBool ? '' : value.replaceAll(`"`, `'`);
+
+			const applyAttribute = reactNamingConventions.get(key) || key.toLowerCase();
+			this.attributes[applyAttribute] = isBool ? '' : value.replaceAll(`"`, `'`);
 		}
 	}
 
