@@ -1,6 +1,6 @@
 {
 	"tasks": {
-		"test": "deno run --allow-all test/index.js",
-		"build_test": "esbuild test/index.ts --bundle --loader:.js=text --loader:.css=text --outfile=test/index.js"
+		"test": "deno run --allow-all test/test.deno.js",
+		"build_test": "esbuild test/test.deno.ts --bundle --loader:.js=text --loader:.css=text --outfile=test/test.deno.js"
 	}
 }
