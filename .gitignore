@@ -3,5 +3,10 @@ dist
 
 # Deno stuff
 deno.lock
-test/index.js
+
+# tests garbage
+test/test.node.js
 test/test.deno.js
+
+# node stuff
+node_modules
