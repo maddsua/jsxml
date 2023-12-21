@@ -11,6 +11,7 @@ permissions:
   contents: read
 
 jobs:
+
   test-deno:
     runs-on: ubuntu-latest
     env:
@@ -40,11 +41,11 @@ jobs:
       - name: Setup repo
         uses: actions/checkout@v3
 
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        registry-url: https://registry.npmjs.org/
-    - run: npm ci
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
 
       - name: Build tests
         run: npm run build_test
