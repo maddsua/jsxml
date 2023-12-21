@@ -4,3 +4,4 @@ dist
 # Deno stuff
 deno.lock
 test/index.js
+test/test.deno.js
