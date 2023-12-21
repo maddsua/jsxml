@@ -13,5 +13,16 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.5"
-	}
+	},
+	"main": "./dist/index.npm.js",
+	"types": "./dist/index.npm.d.ts",
+	"exports": {
+		".": {
+			"default": "./dist/index.npm.js",
+			"types": "./dist/index.npm.d.ts"
+		}
+	},
+	"files": [
+		"dist"
+	]
 }
