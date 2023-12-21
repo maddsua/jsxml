@@ -3,3 +3,9 @@ dist
 
 # Deno stuff
 deno.lock
+
+# tests garbage
+test/.temp
+
+# node stuff
+node_modules

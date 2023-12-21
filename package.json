@@ -1,0 +1,15 @@
+{
+	"name": "@maddsua/jsxml",
+	"version": "3.0.0",
+	"type": "module",
+	"dependencies": {
+		"esbuild": "^0.19.10"
+	},
+	"scripts": {
+		"test": "node test/.temp/test.node.js",
+		"build_test": "esbuild test/test.node.ts --platform=node --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.node.js"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.5"
+	}
+}

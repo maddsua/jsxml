@@ -1,5 +1,9 @@
 import { React } from "../../mod.ts";
 
+import scriptResource from '../resources/script.js';
+//	deno-ignore
+import styleResource from '../resources/style.css';
+
 interface Props {
 	title: string;
 };
@@ -13,8 +17,8 @@ export default function (props: Props, children: any) {
 				<meta name="x-apple-disable-message-reformatting" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<title>{props.title}</title>
-				<style src="/style.css" bundle></style>
-				<script src="/script.js" bundle></script>
+				<style>{styleResource}</style>
+				<script>{scriptResource}</script>
 			</head>
 			<body>
 

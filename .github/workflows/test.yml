@@ -1,0 +1,57 @@
+
+name: Test package
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+
+  test-deno:
+    runs-on: ubuntu-latest
+    env:
+      TEST_OUT_DRY: "true"
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v3
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Install esbuild
+        run: curl -fsSL https://esbuild.github.io/dl/latest | sh
+
+      - name: Build tests
+        run: deno task build_test
+
+      - name: Run tests
+        run: deno task test
+
+  test-node:
+    runs-on: ubuntu-latest
+    env:
+      TEST_OUT_DRY: "true"
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+
+      - name: Build tests
+        run: npm run build_test
+
+      - name: Run tests
+        run: npm run test

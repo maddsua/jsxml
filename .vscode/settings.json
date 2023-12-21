@@ -1,4 +1,8 @@
 {
 	"deno.enable": true,
-	"deno.lint": false
+	"deno.lint": false,
+	"deno.enablePaths": [
+		"test/test.deno.ts",
+		"mod.ts"
+	]
 }
