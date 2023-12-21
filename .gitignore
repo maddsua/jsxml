@@ -5,8 +5,7 @@ dist
 deno.lock
 
 # tests garbage
-test/test.node.js
-test/test.deno.js
+test/.temp
 
 # node stuff
 node_modules
