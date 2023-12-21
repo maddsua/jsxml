@@ -1,11 +1,3 @@
-no this is not a fork or another react-killer framework.
+# Render JSX directly into HTML
 
-it does not support ssr, state and hooks.
-
-all it does is renders jsx to html and that's it.
-
-it's not compatible to react, never was tested and never will be.
-
-it only exist for a sole purpose of rendering some html emails
-
-oh and it's for Deno. no other runtime is supported rn
+A nice thing about JSX is that it doesn't necessarily needs react and guess what? Right, this packages is a reactless JSX renderer
