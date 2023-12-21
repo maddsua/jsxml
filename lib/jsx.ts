@@ -1,4 +1,3 @@
-import { loadResource } from "./res.ts";
 
 const selfClosingTags = new Set<string>([
 	"area",
@@ -121,19 +120,6 @@ class JSXHTMLNode extends JSXNode {
 		}
 
 		/**
-		 * Perform external content bundling
-		 */
-		let externalContent: string | null = null;
-		if (externalResourceTags.has(this.tagname) && this.attributes['bundle'] !== undefined) {
-
-			if (!this.attributes['src']) throw new Error('An element has bundle attribute but src is not provided');
-			externalContent = loadResource(this.attributes['src'], renderProps?.externalResourcesRoot);
-
-			delete this.attributes['src'];
-			delete this.attributes['bundle'];
-		}
-
-		/**
 		 * Process tag attributes
 		 */
 		const allAttribs = Object.entries(this.attributes);
@@ -149,8 +135,7 @@ class JSXHTMLNode extends JSXNode {
 		/**
 		 * Generate tag with children
 		 */
-		const innerHTML = externalContent || renderChildren(this.children, renderProps);
-		const tagHTML = `<${this.tagname}${attribsAsString}>${innerHTML}</${this.tagname}>`;
+		const tagHTML = `<${this.tagname}${attribsAsString}>${renderChildren(this.children, renderProps)}</${this.tagname}>`;
 
 		/**
 		 * Return <html> tag with doctype
