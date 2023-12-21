@@ -26,6 +26,9 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Install esbuild
+        run: curl -fsSL https://esbuild.github.io/dl/latest | sh
+
       - name: Build tests
         run: deno task build_test
 
