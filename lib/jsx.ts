@@ -20,11 +20,6 @@ const selfClosingTags = new Set<string>([
 	"frame"
 ]);
 
-const externalResourceTags = new Set<string>([
-	"script",
-	"style"
-]);
-
 const reactNamingConventions = new Map<string, string>([
 	["className", "class"]
 ]);
