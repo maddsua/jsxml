@@ -1,4 +1,4 @@
-import { jsxfactory } from "./jsx";
+import { jsxfactory } from "./jsx.js";
 
 export {
 	jsxfactory as JSX,
