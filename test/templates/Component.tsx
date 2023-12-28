@@ -10,7 +10,7 @@ const pets = [
 
 export default () => {
 	return <Layout title="Test title">
-		<p>
+		<p class={{ 'added-class': true, 'hidden-class': false }}>
 			Nexted paragraph here
 		</p>
 		<ul>
