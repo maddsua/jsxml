@@ -92,8 +92,8 @@ class JSXHTMLNode extends JSXNode {
 	constructor(tagname: string, attributes?: Record<string, JSXElementAttribute>, children?: JSXNode[]) {
 
 		super();
-		this.tagname = tagname.toLowerCase();
 
+		this.tagname = tagname.toLowerCase();
 		this.children = selfClosingTags.has(this.tagname) ? null : children || [];
 
 		for (const key in attributes) {
