@@ -8,7 +8,7 @@ try {
 	
 	const appRoot = Component();
 	let html = appRoot.render({
-		externalResourcesRoot: './test/resources/'
+		minifyHTML: true
 	});
 
 	if (process.env['TEST_OUT_DRY'] !== 'true') {
