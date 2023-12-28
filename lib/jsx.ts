@@ -24,6 +24,8 @@ const reactNamingConventions = new Map<string, string>([
 	["className", "class"]
 ]);
 
+const collapseWhitespaces = (html: string) => html.replace(/[\t ]+/g, ' ').replace(/[\r\n]/g, '');
+
 interface RenderProps {
 	externalResourcesRoot?: string;
 	addDoctype?: boolean;
