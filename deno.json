@@ -1,6 +1,7 @@
 {
 	"tasks": {
-		"test": "deno run --allow-all test/.temp/test.deno.js",
-		"build_test": "esbuild test/test.deno.ts --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.deno.js"
+		"test:run": "deno run -A test/.temp/test.deno.js",
+		"test:build": "esbuild test/test.deno.ts --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.deno.js",
+		"test": "deno task test:build && deno task test:run"
 	}
 }
