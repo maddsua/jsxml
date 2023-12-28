@@ -13,7 +13,7 @@ export default () => {
 		<p class={{ 'added-class': true, 'hidden-class': false }}>
 			Nexted paragraph here
 		</p>
-		<ul>
+		<ul class={['class-1', 'class-2']}>
 			{ pets.map(item => <li>{item}</li>) }
 		</ul>
 	</Layout>
