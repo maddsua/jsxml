@@ -81,27 +81,51 @@ class JSXTextNode extends JSXNode {
 	}
 };
 
+type JSXElementAttribute = string | boolean | string[] | Record<string, boolean>;
+
 class JSXHTMLNode extends JSXNode {
 
 	children: JSXNode[] | null;
 	tagname: string;
 	attributes: Record<string, string> = {};
 
-	constructor(tagname: string, attributes?: Record<string, string | boolean>, children?: JSXNode[]) {
+	constructor(tagname: string, attributes?: Record<string, JSXElementAttribute>, children?: JSXNode[]) {
 
 		super();
-		this.tagname = tagname.toLowerCase();
 
+		this.tagname = tagname.toLowerCase();
 		this.children = selfClosingTags.has(this.tagname) ? null : children || [];
 
 		for (const key in attributes) {
 
-			const value = attributes[key];
-			const isBool = value === true;
-			if (!isBool && typeof value !== 'string') continue;
-
+			const attrib = attributes[key];
 			const applyAttribute = reactNamingConventions.get(key) || key.toLowerCase();
-			this.attributes[applyAttribute] = isBool ? '' : value.replaceAll(`"`, `'`);
+			let applyEntries: string[] = [];
+
+			switch (typeof attrib) {
+
+				case 'object': {
+
+					if (Array.isArray(attrib)) {
+						applyEntries = attrib.filter(item => typeof item === 'string' && item?.length);
+					} else {
+						applyEntries = Object.entries(attrib).filter(item => item[1]).map(item => item[0]);
+					}
+
+				} break;
+
+				case 'boolean': {
+					if (attrib === true) applyEntries = [''];
+				} break;
+
+				case 'string': {
+					applyEntries = [attrib];
+				} break;
+			}
+
+			if (applyEntries.length) {
+				this.attributes[applyAttribute] = applyEntries.map(item => item.replaceAll(`"`, `'`)).join(' ');
+			}
 		}
 	}
 
@@ -118,7 +142,7 @@ class JSXHTMLNode extends JSXNode {
 		 * Process tag attributes
 		 */
 		const allAttribs = Object.entries(this.attributes);
-		const attribsAsString = allAttribs.length ? ' ' + allAttribs.map(item => `${item[0]}="${item[1]}"`).join(' ') : '';
+		const attribsAsString = allAttribs.length ? (' ' + allAttribs.map(item => `${item[0]}="${item[1]}"`).join(' ')) : '';
 
 		/**
 		 * Return void tag

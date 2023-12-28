@@ -1,7 +1,8 @@
 import { React } from "../../mod.ts";
 
+//	@ts-ignore
 import scriptResource from '../resources/script.js';
-//	deno-ignore
+//	@ts-ignore
 import styleResource from '../resources/style.css';
 
 interface Props {
