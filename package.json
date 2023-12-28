@@ -2,21 +2,6 @@
 	"name": "@maddsua/jsxml",
 	"version": "3.1.0",
 	"type": "module",
-	"dependencies": {
-		"esbuild": "^0.19.10",
-		"typescript": "^5.3.3"
-	},
-	"scripts": {
-		"test": "node test/.temp/test.node.js",
-		"build_test": "esbuild test/test.node.ts --platform=node --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.node.js",
-		"build": "tsc"
-	},
-	"devDependencies": {
-		"@types/node": "^20.10.5"
-	},
-	"engines" : { 
-		"node" : ">=16.0.0" 
-	},
 	"main": "./dist/index.npm.js",
 	"types": "./dist/index.npm.d.ts",
 	"exports": {
@@ -25,7 +10,22 @@
 			"types": "./dist/index.npm.d.ts"
 		}
 	},
+	"scripts": {
+		"test": "node test/.temp/test.node.js",
+		"build_test": "esbuild test/test.node.ts --platform=node --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.node.js",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"esbuild": "^0.19.10",
+		"typescript": "^5.3.3"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.5"
+	},
 	"files": [
 		"dist"
-	]
+	],
+	"engines" : { 
+		"node" : ">=16.0.0" 
+	}
 }

@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"lib": ["DOM", "ES2015", "ESNext"],
+		"allowImportingTsExtensions": true,
+		"allowSyntheticDefaultImports": true,
+		"noEmit": true,
+		"strict": true,
+		"jsx": "preserve",
+	},
+}
