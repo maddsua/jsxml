@@ -2,12 +2,12 @@
 	"compilerOptions": {
 		"lib": ["DOM", "ES2015", "ESNext"],
 		"target": "ESNext",
+		"allowImportingTsExtensions": true,
 		"moduleResolution": "Bundler",
 		"outDir": "dist",
 		"declaration": true,
 		"sourceMap": false,
 		"strict": true,
 		"jsx": "preserve"
-	},
-	"include": ["lib"]
+	}
 }
