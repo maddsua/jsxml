@@ -30,10 +30,7 @@ jobs:
       - name: Install esbuild
         run: curl -fsSL https://esbuild.github.io/dl/latest | sh
 
-      - name: Build tests
-        run: deno task build_test
-
-      - name: Run tests
+      - name: Build and run tests
         run: deno task test
 
   test-node:
@@ -51,8 +48,5 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
 
-      - name: Build tests
-        run: npm run build_test
-
-      - name: Run tests
+      - name: Build and run tests
         run: npm run test
