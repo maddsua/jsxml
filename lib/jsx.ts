@@ -27,9 +27,9 @@ const reactNamingConventions = new Map<string, string>([
 const collapseWhitespaces = (html: string) => html.replace(/[\t ]+/g, ' ').replace(/[\r\n]/g, '');
 
 interface RenderProps {
-	externalResourcesRoot?: string;
 	addDoctype?: boolean;
 	convertBrTagsToNewlines?: boolean;
+	minifyHTML?: boolean;
 };
 
 abstract class JSXNode {
@@ -78,7 +78,10 @@ class JSXTextNode extends JSXNode {
 		this.content = text || '';
 	};
 
-	render() {
+	render(renderProps?: RenderProps) {
+		if (renderProps?.minifyHTML) {
+			return collapseWhitespaces(this.content);
+		}
 		return this.content;
 	}
 };
