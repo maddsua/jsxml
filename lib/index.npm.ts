@@ -1,3 +1,4 @@
+
 import { jsxfactory } from "./jsx.js";
 
 export {
@@ -5,4 +6,4 @@ export {
 	jsxfactory as React,
 	jsxfactory as _jsx,
 	jsxfactory as default
-}
+};
