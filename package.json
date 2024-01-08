@@ -4,12 +4,6 @@
 	"type": "module",
 	"main": "./dist/index.npm.js",
 	"types": "./dist/index.npm.d.ts",
-	"exports": {
-		".": {
-			"default": "./dist/index.npm.js",
-			"types": "./dist/index.npm.d.ts"
-		}
-	},
 	"scripts": {
 		"test:run": "node test/.temp/test.node.js",
 		"test:build": "esbuild test/test.node.ts --platform=node --format=esm --bundle --loader:.js=text --loader:.css=text --outfile=test/.temp/test.node.js",
