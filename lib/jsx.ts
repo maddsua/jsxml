@@ -24,12 +24,37 @@ const reactNamingConventions = new Map<string, string>([
 	["className", "class"]
 ]);
 
+const htmlTagSets = {
+	telegram: {
+		tags: new Set([
+			"b",
+			"bold",
+			"i",
+			"em",
+			"u",
+			"ins",
+			"s",
+			"strike",
+			"del",
+			"span",
+			"tg-spoiler",
+			"a",
+			"tg-emoji",
+			"code",
+			"pre",
+			"blockquote",
+			"br" //	this one requires "convertBrTagsToNewlines" to be set to "true"
+		])
+	}
+};
+
 const collapseWhitespaces = (html: string) => html.replace(/[\t ]+/g, ' ').replace(/[\r\n]/g, '');
 
 interface RenderProps {
 	addDoctype?: boolean;
 	convertBrTagsToNewlines?: boolean;
 	minifyHTML?: boolean;
+	restrictTagSet?: keyof typeof htmlTagSets;
 };
 
 abstract class JSXNode {
@@ -135,6 +160,15 @@ class JSXHTMLNode extends JSXNode {
 	}
 
 	render(renderProps?: RenderProps) {
+
+		/**
+		 * Check tag set restrictions
+		 */
+		if (renderProps?.restrictTagSet) {
+			const useTagSet = htmlTagSets[renderProps.restrictTagSet];
+			if (useTagSet && !useTagSet.tags.has(this.tagname))
+				throw new Error(`Tagset "${renderProps.restrictTagSet}" disallows usage of the <${this.tagname}> tag`);
+		}
 
 		/**
 		 * Check for <br> tag replacement
