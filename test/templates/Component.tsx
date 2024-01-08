@@ -11,7 +11,7 @@ const pets = [
 export default () => {
 	return <Layout title="Test title">
 		<p class={{ 'added-class': true, 'hidden-class': false }}>
-			Nexted paragraph here
+			Nested paragraph here
 		</p>
 		<ul class={['class-1', 'class-2']}>
 			{ pets.map(item => <li>{item}</li>) }
