@@ -38,21 +38,21 @@ abstract class JSXNode {
 
 const renderChildren = (children: any[], renderProps?: RenderProps) => {
 
-	const asStrings = children.map(item => {
+	const asStrings: (string | undefined)[] = children.map(item => {
 
 		if (item instanceof JSXNode)
 			return item.render(renderProps);
-	
+
 		switch (typeof item) {
 			case 'string': return item;
-			case 'number': return item.toString();
-			case 'object': return JSON.stringify(item);
-			case 'boolean': return item ? 'true' : 'false';
-			default: return null;
+			default: {
+				if (item !== null && item !== undefined)
+					return JSON.stringify(item);
+			} break;
 		}
 	});
 
-	return asStrings.filter(item => typeof item === 'string').join('');
+	return asStrings.filter(item => item?.length).join('');
 };
 
 class JSXFragmentNode extends JSXNode {
