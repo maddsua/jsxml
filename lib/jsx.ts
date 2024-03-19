@@ -29,6 +29,7 @@ const htmlTagSets = {
 		tags: new Set([
 			"b",
 			"bold",
+			"strong",
 			"i",
 			"em",
 			"u",
