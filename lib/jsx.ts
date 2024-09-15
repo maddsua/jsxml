@@ -200,7 +200,7 @@ class JSXHTMLNode extends JSXNode {
 		 * Return <html> tag with doctype
 		 */
 		if (this.tagname === 'html' && renderProps?.addDoctype !== false) {
-			return '<!DOCTYPE html>' + tagHTML;
+			return '<!DOCTYPE html>\n' + tagHTML;
 		}
 
 		/**
